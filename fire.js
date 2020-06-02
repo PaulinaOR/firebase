@@ -34,7 +34,7 @@ inputTask.value = '';
 }
 
 function deleteTask(){
-  const name = taskInput.value;
+  const name = inputTask.value;
   
   taskRef.deleted({
     name: name,
