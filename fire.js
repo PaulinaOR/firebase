@@ -1,16 +1,16 @@
-//UI
+
 const inputTask = document.querySelector('#taskInput');
 const taskUl = document.querySelector('#taskContainer');
-//DB
+
 connectDB();
 const database = firebase.database();
 const taskRef = database.ref('task');
 taskRef.on('value', paintTask);
-deleteTask('value');
+deleteTask();
 update();
 
 function connectDB(){
-// Your web app's Firebase configuration
+
   var firebaseConfig = {
     apiKey: "AIzaSyDI_E5H23Gz4T3YL2vQVc9Qjg7cbIIf-4E",
     authDomain: "todolist2-e8916.firebaseapp.com",
@@ -33,27 +33,26 @@ function addTask(){
 inputTask.value = '';
 }
 
+function deleteTask(){
+  const name = taskInput.value;
+  
+  taskRef.deleted({
+    name: name,
+    IsComplete: false
+  })
+  taskInput.value ='';
+}
+
 function update(){
-   taskRef.update({
-   "-M87TjRPo-2RLrmWb-ZL" : {
-   name : "nuevo valor 797",
-   isCopleted: false
-   }
-   }) 
-}
-
-function changeTask(event, i){
-  todoItems[i].isSelected = event.target.checked; 
-  updateUI();
-}
-
-function deleteTask(data){
-		todoItems.splice(data, 1);
-    updateUI();
+  taskRef.update({
+    "-M87TjRPo-2RLrmWb-ZL" : {
+    name : "nuevo valor 797",
+    isCopleted: false
+    }
+  }) 
 }
 
 function paintTask(data){
-//console.log(data.val());
 const result = data.val();
 let taskli = ""
 for(key in result){
